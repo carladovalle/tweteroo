@@ -11,21 +11,19 @@ const tweets = [];
 app.post("/sign-up", (req, res) => {
     const user = req.body;
     users.push(user);
-    res.send(user);
-});
-
-app.get("/sign-up", (req, res) => {
-    res.send(users);
+    res.send("ok");
 });
 
 app.post("/tweets", (req, res) => {
-    const tweet = req.body;
-    tweets.push(tweet);
-    res.send(tweet);
+    const username = req.body.username;
+    const tweet = req.body.tweet;
+    const avatar = users.find(item => item.username === username).avatar;
+    tweets.push({ username, tweet, avatar });
+    res.send("ok");
 })
 
 app.get("/tweets", (req, res) => {
-    res.send(tweets);
+    res.send(tweets.slice(-10));
 })
 
 app.listen(5000, () => {
